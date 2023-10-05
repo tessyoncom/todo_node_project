@@ -1,0 +1,22 @@
+     if (!body?.title) {
+            response.writeHead(400, { 'Content-Type': 'application/json' })
+            response.write(JSON.stringify({ success: false, message: "Kindly provide a title for your task" }))
+            response.end()
+            return
+        }
+
+        if (!body?.message) {
+            response.writeHead(400, { 'Content-Type': 'application/json' })
+            response.write(JSON.stringify({ success: false, message: "Kindly provide a message for your task" }))
+            response.end()
+            return
+        }
+
+        todo.push(body)
+
+        request.on('end', function () {
+            console.log('Body: ' + body)
+            response.writeHead(200, { 'Content-Type': 'application/json' })
+            response.write(JSON.stringify({ success: false, message: "Task has been created", payload: todo }))
+            response.end()
+        })
